@@ -79,21 +79,18 @@
 
 
 
-<meta name="description" content="深度测试开启时，Opengl会测试片段的深度值和深度缓冲区的深度值。如果测试通过，深度缓冲区的值会被更新成新的深度值；如果测试失败，该片段会被丢弃。">
+<meta name="description" content="片段着色器处理完片段后，模板测试开始执行，模板测试会根据模板缓冲区的内容丢弃无法通过的片段。剩余的片段会传递给深度测试进行下一步操作。">
 <meta name="keywords" content="OpenGL">
 <meta property="og:type" content="article">
-<meta property="og:title" content="OpenGL Note: 深度测试">
-<meta property="og:url" content="http://yoursite.com/2018/05/23/OpenGL-Note-深度测试/index.html">
+<meta property="og:title" content="OpenGL Note: 模板测试">
+<meta property="og:url" content="http://yoursite.com/2018/05/29/OpenGL-Note-模板测试/index.html">
 <meta property="og:site_name" content="Echo`s Blog">
-<meta property="og:description" content="深度测试开启时，Opengl会测试片段的深度值和深度缓冲区的深度值。如果测试通过，深度缓冲区的值会被更新成新的深度值；如果测试失败，该片段会被丢弃。">
+<meta property="og:description" content="片段着色器处理完片段后，模板测试开始执行，模板测试会根据模板缓冲区的内容丢弃无法通过的片段。剩余的片段会传递给深度测试进行下一步操作。">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://7xlmni.com1.z0.glb.clouddn.com/D266FE26-703B-4CCE-B620-D4E2DA8D2DB3.png">
-<meta property="og:image" content="http://7xlmni.com1.z0.glb.clouddn.com/0B7BD253-3409-417C-A285-103ECD767812.png">
-<meta property="og:updated_time" content="2018-05-23T05:48:41.000Z">
+<meta property="og:updated_time" content="2018-05-29T06:40:34.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="OpenGL Note: 深度测试">
-<meta name="twitter:description" content="深度测试开启时，Opengl会测试片段的深度值和深度缓冲区的深度值。如果测试通过，深度缓冲区的值会被更新成新的深度值；如果测试失败，该片段会被丢弃。">
-<meta name="twitter:image" content="http://7xlmni.com1.z0.glb.clouddn.com/D266FE26-703B-4CCE-B620-D4E2DA8D2DB3.png">
+<meta name="twitter:title" content="OpenGL Note: 模板测试">
+<meta name="twitter:description" content="片段着色器处理完片段后，模板测试开始执行，模板测试会根据模板缓冲区的内容丢弃无法通过的片段。剩余的片段会传递给深度测试进行下一步操作。">
 
 
 
@@ -123,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/05/23/OpenGL-Note-深度测试/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/05/29/OpenGL-Note-模板测试/"/>
 
 
 
 
 
-  <title>OpenGL Note: 深度测试 | Echo`s Blog</title>
+  <title>OpenGL Note: 模板测试 | Echo`s Blog</title>
   
 
 
@@ -236,7 +233,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/23/OpenGL-Note-深度测试/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/29/OpenGL-Note-模板测试/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Echo">
@@ -253,7 +250,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">OpenGL Note: 深度测试</h1>
+          <h1 class="post-title" itemprop="name headline">OpenGL Note: 模板测试</h1>
         
 
         <div class="post-meta">
@@ -265,8 +262,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-23T11:22:02+08:00">
-                2018-05-23
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-29T14:33:39+08:00">
+                2018-05-29
               </time>
             
 
@@ -290,7 +287,7 @@
 
           
               <div class="post-description">
-                  深度测试开启时，Opengl会测试片段的深度值和深度缓冲区的深度值。如果测试通过，深度缓冲区的值会被更新成新的深度值；如果测试失败，该片段会被丢弃。
+                  片段着色器处理完片段后，模板测试开始执行，模板测试会根据模板缓冲区的内容丢弃无法通过的片段。剩余的片段会传递给深度测试进行下一步操作。
               </div>
           
 
@@ -307,34 +304,46 @@
       
 
       
-        <p>深度测试默认关闭，需要通过 <code>glEnable(GL_DEPTH_TEST)</code> 开启。</p>
-<p>需要在每次渲染前使用 <code>glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT</code> 清除深度缓冲区，避免上次渲染的深度缓冲区值残留。</p>
-<p>深度测试开启时，Opengl会测试片段的深度值和深度缓冲区的深度值。如果测试通过，深度缓冲区的值会被更新成新的深度值；如果测试失败，该片段会被丢弃。<br>当有场景需要在片段上做深度测试后不更新深度缓冲区的值时，可以通过<code>glDepthMask(GL_FALSE)</code> 禁用，此时深度缓冲区是只读的。</p>
-<p>可以通过<code>glDepthFunc(GL_LESS)</code> 修改深度测试的比较操作，可选的值有：</p>
+        <h1 id="模板测试-Stencil-Testing"><a href="#模板测试-Stencil-Testing" class="headerlink" title="模板测试 Stencil Testing"></a>模板测试 Stencil Testing</h1><p>片段着色器处理完片段后，模板测试开始执行，模板测试会丢弃无法通过的片段。剩余的片段会传递给深度测试进行下一步操作。<br>模板缓冲区中，每个片段包含8位的模版值。<br>使用模板缓冲区的主要步骤如下：</p>
+<ol>
+<li>开启模板缓冲区的写入</li>
+<li>渲染物体，更新模板缓冲区的内容</li>
+<li>关闭模板缓冲区的写入</li>
+<li>渲染其他物体，根据模板缓冲区的内容丢弃部分片段</li>
+</ol>
+<p>可以通过 <code>glEnable(GL_STENCIL_TEST);</code>  开启模板测试，使用 <code>glClear(GL_STENCIL_BUFFER_BIT);</code>每次渲染前清楚模板缓冲区。</p>
+<p><code>glStencilMask</code> 用于设置一个位掩码，用于和将要写入模板缓冲区的值做AND运算。通常只会使用0xFF或者0x00作为位掩码，用于保持原样或者禁止写入。</p>
+<p><code>glStencilFunc</code> 用于设置模板测试函数、模板测试参考值、一个在模板测试前和参考值、已存储的模板值进行AND运算的位掩码。<br>模板测试函数可选：</p>
 <ul>
-<li>GL_ALWAYS</li>
 <li>GL_NEVER</li>
 <li>GL_LESS</li>
-<li>GL_EQUAL</li>
 <li>GL_LEQUAL</li>
 <li>GL_GREATER</li>
-<li>GL_NOTEQUAL</li>
 <li>GL_GEQUAL</li>
+<li>GL_EQUAL</li>
+<li>GL_NOTEQUAL</li>
+<li>GL_ALWAYS</li>
 </ul>
-<p>深度值计算：屏幕空间的深度缓冲区的值是非线性的</p>
+<p><code>glStencilOp</code> 允许指定模板测试失败后的操作、模板测试通过和深度测试失败后的操作、模板测试通过和深度测试通过后的操作。<br>可选的操作有：</p>
 <ul>
-<li>线性深度缓冲区：(z - near) / (far - near)</li>
-<li>非线性深度缓冲区： (1/z - 1/near) / (1/far - 1/near)</li>
+<li>GL_KEEP</li>
+<li>GL_ZERO</li>
+<li>GL_REPLACE</li>
+<li>GL_INCR</li>
+<li>GL_DECR_WRAP</li>
+<li>GL_INCR_WRAP</li>
+<li>GL_DECR</li>
+<li>GL_DECT_WRAP</li>
+<li>GL_INVERT<br>默认设置是：<code>glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP)</code> 模板缓冲区保留原值</li>
 </ul>
-<p><img src="http://7xlmni.com1.z0.glb.clouddn.com/D266FE26-703B-4CCE-B620-D4E2DA8D2DB3.png" alt=""></p>
-<p><img src="http://7xlmni.com1.z0.glb.clouddn.com/0B7BD253-3409-417C-A285-103ECD767812.png" alt=""></p>
-<p>可以通过gl_FragCoord的值实现对深度缓冲的可视化。gl_FragCoord的x和y分量表示在屏幕空间的坐标值，(0,0)为左下角，z分量表示片段的深度值。<br><code>FragColor = vec4(vec3(gl_FragCoord.z), 1.0);</code></p>
-<p>深度冲突：深度缓冲区没有足够的精度决定两个片段的显示。在更远处会有更明显的表示，原因是z值越大，深度缓冲区的精度越小。</p>
-<p>防止深度冲突：</p>
+<p>物体轮廓实现：</p>
 <ol>
-<li>不要把多个物体摆得太靠近</li>
-<li>尽可能把近平面设置的远一些（精度）</li>
-<li>使用更高精度的深度缓冲（牺牲性能）</li>
+<li>绘制物体前先设置模板函数为 <code>GL_ALWAYS</code> </li>
+<li>渲染物体，更新模板 缓冲区的值</li>
+<li>禁用模板缓冲区写入功能和深度测试</li>
+<li>放大物体</li>
+<li>使用输出一个颜色的片段着色器，重新绘制物体，进行模板 测试</li>
+<li>开启模板缓冲区写入和深度测试</li>
 </ol>
 
       
@@ -366,15 +375,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2018/05/23/OpenGL-Note-深度测试/" rel="next" title="OpenGL Note: 深度测试">
+                <i class="fa fa-chevron-left"></i> OpenGL Note: 深度测试
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/29/OpenGL-Note-模板测试/" rel="prev" title="OpenGL Note: 模板测试">
-                OpenGL Note: 模板测试 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -426,8 +435,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -478,6 +496,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#模板测试-Stencil-Testing"><span class="nav-number">1.</span> <span class="nav-text">模板测试 Stencil Testing</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="OpenGL," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -79,21 +79,14 @@
 
 
 
-<meta name="description" content="深度测试开启时，Opengl会测试片段的深度值和深度缓冲区的深度值。如果测试通过，深度缓冲区的值会被更新成新的深度值；如果测试失败，该片段会被丢弃。">
-<meta name="keywords" content="OpenGL">
-<meta property="og:type" content="article">
-<meta property="og:title" content="OpenGL Note: 深度测试">
-<meta property="og:url" content="http://yoursite.com/2018/05/23/OpenGL-Note-深度测试/index.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="about">
+<meta property="og:url" content="http://yoursite.com/about/index.html">
 <meta property="og:site_name" content="Echo`s Blog">
-<meta property="og:description" content="深度测试开启时，Opengl会测试片段的深度值和深度缓冲区的深度值。如果测试通过，深度缓冲区的值会被更新成新的深度值；如果测试失败，该片段会被丢弃。">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://7xlmni.com1.z0.glb.clouddn.com/D266FE26-703B-4CCE-B620-D4E2DA8D2DB3.png">
-<meta property="og:image" content="http://7xlmni.com1.z0.glb.clouddn.com/0B7BD253-3409-417C-A285-103ECD767812.png">
-<meta property="og:updated_time" content="2018-05-23T05:48:41.000Z">
+<meta property="og:updated_time" content="2018-05-29T09:19:05.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="OpenGL Note: 深度测试">
-<meta name="twitter:description" content="深度测试开启时，Opengl会测试片段的深度值和深度缓冲区的深度值。如果测试通过，深度缓冲区的值会被更新成新的深度值；如果测试失败，该片段会被丢弃。">
-<meta name="twitter:image" content="http://7xlmni.com1.z0.glb.clouddn.com/D266FE26-703B-4CCE-B620-D4E2DA8D2DB3.png">
+<meta name="twitter:title" content="about">
 
 
 
@@ -123,13 +116,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/05/23/OpenGL-Note-深度测试/"/>
+  <link rel="canonical" href="http://yoursite.com/about/"/>
 
 
 
 
 
-  <title>OpenGL Note: 深度测试 | Echo`s Blog</title>
+  <title>about | Echo`s Blog</title>
   
 
 
@@ -234,176 +227,33 @@
 
   <div id="posts" class="posts-expand">
     
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/23/OpenGL-Note-深度测试/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Echo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Echo`s Blog">
-    </span>
-
     
+    
+    <div class="post-block page">
       <header class="post-header">
 
-        
-        
-          <h1 class="post-title" itemprop="name headline">OpenGL Note: 深度测试</h1>
-        
+	<h1 class="post-title" itemprop="name headline">about</h1>
 
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-23T11:22:02+08:00">
-                2018-05-23
-              </time>
-            
 
-            
 
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-              <div class="post-description">
-                  深度测试开启时，Opengl会测试片段的深度值和深度缓冲区的深度值。如果测试通过，深度缓冲区的值会被更新成新的深度值；如果测试失败，该片段会被丢弃。
-              </div>
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+</header>
 
       
       
-
       
-        <p>深度测试默认关闭，需要通过 <code>glEnable(GL_DEPTH_TEST)</code> 开启。</p>
-<p>需要在每次渲染前使用 <code>glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT</code> 清除深度缓冲区，避免上次渲染的深度缓冲区值残留。</p>
-<p>深度测试开启时，Opengl会测试片段的深度值和深度缓冲区的深度值。如果测试通过，深度缓冲区的值会被更新成新的深度值；如果测试失败，该片段会被丢弃。<br>当有场景需要在片段上做深度测试后不更新深度缓冲区的值时，可以通过<code>glDepthMask(GL_FALSE)</code> 禁用，此时深度缓冲区是只读的。</p>
-<p>可以通过<code>glDepthFunc(GL_LESS)</code> 修改深度测试的比较操作，可选的值有：</p>
-<ul>
-<li>GL_ALWAYS</li>
-<li>GL_NEVER</li>
-<li>GL_LESS</li>
-<li>GL_EQUAL</li>
-<li>GL_LEQUAL</li>
-<li>GL_GREATER</li>
-<li>GL_NOTEQUAL</li>
-<li>GL_GEQUAL</li>
-</ul>
-<p>深度值计算：屏幕空间的深度缓冲区的值是非线性的</p>
-<ul>
-<li>线性深度缓冲区：(z - near) / (far - near)</li>
-<li>非线性深度缓冲区： (1/z - 1/near) / (1/far - 1/near)</li>
-</ul>
-<p><img src="http://7xlmni.com1.z0.glb.clouddn.com/D266FE26-703B-4CCE-B620-D4E2DA8D2DB3.png" alt=""></p>
-<p><img src="http://7xlmni.com1.z0.glb.clouddn.com/0B7BD253-3409-417C-A285-103ECD767812.png" alt=""></p>
-<p>可以通过gl_FragCoord的值实现对深度缓冲的可视化。gl_FragCoord的x和y分量表示在屏幕空间的坐标值，(0,0)为左下角，z分量表示片段的深度值。<br><code>FragColor = vec4(vec3(gl_FragCoord.z), 1.0);</code></p>
-<p>深度冲突：深度缓冲区没有足够的精度决定两个片段的显示。在更远处会有更明显的表示，原因是z值越大，深度缓冲区的精度越小。</p>
-<p>防止深度冲突：</p>
-<ol>
-<li>不要把多个物体摆得太靠近</li>
-<li>尽可能把近平面设置的远一些（精度）</li>
-<li>使用更高精度的深度缓冲（牺牲性能）</li>
-</ol>
-
+      <div class="post-body">
+        
+        
+          
+        
+      </div>
+      
+      
       
     </div>
     
     
     
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/OpenGL/" rel="tag"># OpenGL</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/29/OpenGL-Note-模板测试/" rel="prev" title="OpenGL Note: 模板测试">
-                OpenGL Note: 模板测试 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
   </div>
 
 

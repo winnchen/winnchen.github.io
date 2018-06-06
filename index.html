@@ -319,24 +319,14 @@
 
       
         
-          
-            <p>题目：<br>Given a string containing just the characters <code>(</code> , <code>)</code> , <code>{</code> , <code>}</code> , <code>[</code> and <code>]</code>, determine if the input string is valid.</p>
-<p>An input string is valid if:</p>
-<ol>
-<li>Open brackets must be closed by the same type of brackets.</li>
-<li>Open brackets must be closed in the correct order.</li>
-</ol>
-<p>Note that an empty string is also considered valid.</p>
-<h4 id="翻译："><a href="#翻译：" class="headerlink" title="翻译："></a>翻译：</h4><p>给一个只包含<code>(</code> , <code>)</code> , <code>{</code> , <code>}</code> , <code>[</code> , <code>]</code>的字符串，判断字符串是否有效。<br>有效的规则：</p>
-<ol>
-<li>左括号和同类型的右括号闭合</li>
-<li>括号必须以正确的顺序闭合</li>
-</ol>
-<h4 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h4><p>利用栈后进先出的特性，遍历字符串每一个字符，如果栈顶的字符可以和字符闭合即可弹出栈顶的字符，否则就将字符压入栈。遍历结束后判断栈是否为空。</p>
-<p><em>可优化的点</em><br>判断括号是否能闭合，除了可以直接在代码中将<code>(</code> + <code>)</code> , <code>{</code> + <code>}</code> , <code>[</code> + <code>]</code> 一一对应外判断外，可以利用这几个字符的ascii码值。<br>查表可以看到，这些字符中，左括号和右括号相差1或者2，而且成对括号之间相差较大。<br><img src="http://7xlmni.com1.z0.glb.clouddn.com/B5BD72B1-9EBB-44CD-A0E1-9B4CD9C03EFF.png" alt="ascii"></p>
-<h4 id="代码："><a href="#代码：" class="headerlink" title="代码："></a>代码：</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isValid</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">stack</span>&lt;<span class="keyword">char</span>&gt; container;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.size(); i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (container.empty()) &#123;</span><br><span class="line">                container.push(s[i]);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">char</span> top = container.top();</span><br><span class="line">                <span class="keyword">if</span> (s[i] - container.top() == <span class="number">1</span> || s[i] - container.top() == <span class="number">2</span>) &#123;</span><br><span class="line">                    container.pop();</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    container.push(s[i]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> container.empty();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-          
+          Given a string containing just the characters `(` , `)` , `{` , `}` , `[` and `]`, determine if the input string is valid.
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/05/30/LeetCode-Valid-Parentheses/">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>

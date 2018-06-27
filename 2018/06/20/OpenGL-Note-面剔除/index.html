@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="LeetCode," />
+  <meta name="keywords" content="OpenGL," />
 
 
 
@@ -79,20 +79,20 @@
 
 
 
-<meta name="description" content="Given a string containing just the characters `(` , `)` , `{` , `}` , `[` and `]`, determine if the input string is valid.">
-<meta name="keywords" content="LeetCode">
+<meta name="description" content="在OpenGL中，面剔除步骤会渲染所有面向观察者的面，丢弃那些背向观察者的面，可以节省很多片段着色器的调用。">
+<meta name="keywords" content="OpenGL">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LeetCode: Valid Parentheses">
-<meta property="og:url" content="http://yoursite.com/2018/05/30/LeetCode-Valid-Parentheses/index.html">
+<meta property="og:title" content="OpenGL Note: 面剔除">
+<meta property="og:url" content="http://yoursite.com/2018/06/20/OpenGL-Note-面剔除/index.html">
 <meta property="og:site_name" content="Echo`s Blog">
-<meta property="og:description" content="Given a string containing just the characters `(` , `)` , `{` , `}` , `[` and `]`, determine if the input string is valid.">
+<meta property="og:description" content="在OpenGL中，面剔除步骤会渲染所有面向观察者的面，丢弃那些背向观察者的面，可以节省很多片段着色器的调用。">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://7xlmni.com1.z0.glb.clouddn.com/B5BD72B1-9EBB-44CD-A0E1-9B4CD9C03EFF.png">
-<meta property="og:updated_time" content="2018-06-06T05:52:14.000Z">
+<meta property="og:image" content="https://learnopengl-cn.github.io/img/04/04/faceculling_windingorder.png">
+<meta property="og:updated_time" content="2018-06-20T08:27:05.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LeetCode: Valid Parentheses">
-<meta name="twitter:description" content="Given a string containing just the characters `(` , `)` , `{` , `}` , `[` and `]`, determine if the input string is valid.">
-<meta name="twitter:image" content="http://7xlmni.com1.z0.glb.clouddn.com/B5BD72B1-9EBB-44CD-A0E1-9B4CD9C03EFF.png">
+<meta name="twitter:title" content="OpenGL Note: 面剔除">
+<meta name="twitter:description" content="在OpenGL中，面剔除步骤会渲染所有面向观察者的面，丢弃那些背向观察者的面，可以节省很多片段着色器的调用。">
+<meta name="twitter:image" content="https://learnopengl-cn.github.io/img/04/04/faceculling_windingorder.png">
 
 
 
@@ -122,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/05/30/LeetCode-Valid-Parentheses/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/06/20/OpenGL-Note-面剔除/"/>
 
 
 
 
 
-  <title>LeetCode: Valid Parentheses | Echo`s Blog</title>
+  <title>OpenGL Note: 面剔除 | Echo`s Blog</title>
   
 
 
@@ -255,7 +255,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/30/LeetCode-Valid-Parentheses/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/20/OpenGL-Note-面剔除/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Echo">
@@ -272,7 +272,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">LeetCode: Valid Parentheses</h1>
+          <h1 class="post-title" itemprop="name headline">OpenGL Note: 面剔除</h1>
         
 
         <div class="post-meta">
@@ -284,8 +284,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-30T10:01:25+08:00">
-                2018-05-30
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-20T18:25:07+08:00">
+                2018-06-20
               </time>
             
 
@@ -309,7 +309,7 @@
 
           
               <div class="post-description">
-                  Given a string containing just the characters `(` , `)` , `{` , `}` , `[` and `]`, determine if the input string is valid.
+                  在OpenGL中，面剔除步骤会渲染所有面向观察者的面，丢弃那些背向观察者的面，可以节省很多片段着色器的调用。
               </div>
           
 
@@ -326,21 +326,22 @@
       
 
       
-        <p>题目：<br>Given a string containing just the characters <code>(</code> , <code>)</code> , <code>{</code> , <code>}</code> , <code>[</code> and <code>]</code>, determine if the input string is valid.</p>
-<p>An input string is valid if:</p>
+        <p>OpenGL通过<em>分析定点数据的环绕顺序来区分正向面和背向面</em>。<br><img src="https://learnopengl-cn.github.io/img/04/04/faceculling_windingorder.png" alt=""><br>每一组组成三角形图元的三个顶点包含了一个环绕顺序，在OpenGL中，<em>逆时针顶点所定义的三角形被处理成正三角形</em>。</p>
+<p>可以使用<code>glEnable(GL_CULL_FACE)</code>开启面剔除选项，从这句代码之后，所有背向面会被丢弃。</p>
+<p>OpenGL允许我们改变需要剔除的面的类型，可以使用<code>glCullFace(GL_FRONT)</code>来定义，可选的参数有：</p>
 <ol>
-<li>Open brackets must be closed by the same type of brackets.</li>
-<li>Open brackets must be closed in the correct order.</li>
+<li><code>GL_BACK</code> 剔除背向面</li>
+<li><code>GL_FRONT</code> 剔除正向面</li>
+<li><code>GL_FRONT_AND_BACK</code> 剔除正向面和背向面</li>
 </ol>
-<p>Note that an empty string is also considered valid.</p>
-<h4 id="翻译："><a href="#翻译：" class="headerlink" title="翻译："></a>翻译：</h4><p>给一个只包含<code>(</code> , <code>)</code> , <code>{</code> , <code>}</code> , <code>[</code> , <code>]</code>的字符串，判断字符串是否有效。<br>有效的规则：</p>
+<p>也可以使用<code>glFrontFace(GL_CW)</code>将顺时针的面定义成正向面，可选的参数有：</p>
 <ol>
-<li>左括号和同类型的右括号闭合</li>
-<li>括号必须以正确的顺序闭合</li>
+<li><code>GL_CCW</code> 逆时针的环绕顺序为正向面</li>
+<li><code>GL_CW</code>   顺时针的环绕顺序为正向面</li>
 </ol>
-<h4 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h4><p>利用栈后进先出的特性，遍历字符串每一个字符，如果栈顶的字符可以和字符闭合即可弹出栈顶的字符，否则就将字符压入栈。遍历结束后判断栈是否为空。</p>
-<p><em>可优化的点</em><br>判断括号是否能闭合，除了可以直接在代码中将<code>(</code> + <code>)</code> , <code>{</code> + <code>}</code> , <code>[</code> + <code>]</code> 一一对应外判断外，可以利用这几个字符的ascii码值。<br>查表可以看到，这些字符中，左括号和右括号相差1或者2，而且成对括号之间相差较大。<br><img src="http://7xlmni.com1.z0.glb.clouddn.com/B5BD72B1-9EBB-44CD-A0E1-9B4CD9C03EFF.png" alt="ascii"></p>
-<h4 id="代码："><a href="#代码：" class="headerlink" title="代码："></a>代码：</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isValid</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">stack</span>&lt;<span class="keyword">char</span>&gt; container;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.size(); i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (container.empty()) &#123;</span><br><span class="line">                container.push(s[i]);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">char</span> top = container.top();</span><br><span class="line">                <span class="keyword">if</span> (s[i] - top == <span class="number">1</span> || s[i] - top == <span class="number">2</span>) &#123;</span><br><span class="line">                    container.pop();</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    container.push(s[i]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> container.empty();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>可以用下面两种方式来实现剔除正向面，可以通过重新定义每个三角形顶点环绕顺序实现。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">glEnable(GL_CULL_FACE);</span><br><span class="line">glCullFace(GL_BACK);</span><br><span class="line">glFrontFace(GL_CW);</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">glEnable(GL_CULL_FACE);</span><br><span class="line">glCullFace(GL_FRONT);</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -358,7 +359,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/LeetCode/" rel="tag"># LeetCode</a>
+            <a href="/tags/OpenGL/" rel="tag"># OpenGL</a>
           
         </div>
       
@@ -371,8 +372,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/29/OpenGL-Note-模板测试/" rel="next" title="OpenGL Note: 模板测试">
-                <i class="fa fa-chevron-left"></i> OpenGL Note: 模板测试
+              <a href="/2018/06/14/OpenGL-Note-混合/" rel="next" title="OpenGL Note: 混合">
+                <i class="fa fa-chevron-left"></i> OpenGL Note: 混合
               </a>
             
           </div>
@@ -381,8 +382,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/06/14/OpenGL-Note-混合/" rel="prev" title="OpenGL Note: 混合">
-                OpenGL Note: 混合 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/06/27/LeetCode-Remove-Nth-Node-From-End-of-List/" rel="prev" title="LeetCode: Remove Nth Node From End of List">
+                LeetCode: Remove Nth Node From End of List <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -435,17 +436,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -496,22 +488,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#翻译："><span class="nav-number">1.</span> <span class="nav-text">翻译：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#思路："><span class="nav-number">2.</span> <span class="nav-text">思路：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码："><span class="nav-number">3.</span> <span class="nav-text">代码：</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       

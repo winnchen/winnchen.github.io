@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="Given a linked list, remove the n-th node from the end of list and return its head.">
+<meta name="description" content="Given a binary tree, determine if it is a valid binary search tree (BST).">
 <meta name="keywords" content="LeetCode">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LeetCode: Remove Nth Node From End of List">
-<meta property="og:url" content="http://yoursite.com/2018/06/27/LeetCode-Remove-Nth-Node-From-End-of-List/index.html">
+<meta property="og:title" content="LeetCode: Validate Binary Search Tree">
+<meta property="og:url" content="http://yoursite.com/2018/07/10/LeetCode-Validate-Binary-Search-Tree/index.html">
 <meta property="og:site_name" content="Echo`s Blog">
-<meta property="og:description" content="Given a linked list, remove the n-th node from the end of list and return its head.">
+<meta property="og:description" content="Given a binary tree, determine if it is a valid binary search tree (BST).">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-06-28T12:46:09.000Z">
+<meta property="og:updated_time" content="2018-07-11T06:41:04.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LeetCode: Remove Nth Node From End of List">
-<meta name="twitter:description" content="Given a linked list, remove the n-th node from the end of list and return its head.">
+<meta name="twitter:title" content="LeetCode: Validate Binary Search Tree">
+<meta name="twitter:description" content="Given a binary tree, determine if it is a valid binary search tree (BST).">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/06/27/LeetCode-Remove-Nth-Node-From-End-of-List/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/07/10/LeetCode-Validate-Binary-Search-Tree/"/>
 
 
 
 
 
-  <title>LeetCode: Remove Nth Node From End of List | Echo`s Blog</title>
+  <title>LeetCode: Validate Binary Search Tree | Echo`s Blog</title>
   
 
 
@@ -253,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/27/LeetCode-Remove-Nth-Node-From-End-of-List/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/10/LeetCode-Validate-Binary-Search-Tree/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Echo">
@@ -270,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">LeetCode: Remove Nth Node From End of List</h1>
+          <h1 class="post-title" itemprop="name headline">LeetCode: Validate Binary Search Tree</h1>
         
 
         <div class="post-meta">
@@ -282,8 +282,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-27T19:54:38+08:00">
-                2018-06-27
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-10T19:40:16+08:00">
+                2018-07-10
               </time>
             
 
@@ -307,7 +307,7 @@
 
           
               <div class="post-description">
-                  Given a linked list, remove the n-th node from the end of list and return its head.
+                  Given a binary tree, determine if it is a valid binary search tree (BST).
               </div>
           
 
@@ -324,33 +324,20 @@
       
 
       
-        <h4 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h4><p>Given a linked list, remove the n-th node from the end of list and return its head.</p>
-<p>Example:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Given linked list: 1-&gt;2-&gt;3-&gt;4-&gt;5, and n = 2.</span><br><span class="line">After removing the second node from the end, the linked list becomes 1-&gt;2-&gt;3-&gt;5.</span><br></pre></td></tr></table></figure>
-<p>Note:<br>Given n will always be valid.</p>
-<p>Follow up:<br>Could you do this in one pass?</p>
-<h4 id="翻译"><a href="#翻译" class="headerlink" title="翻译"></a>翻译</h4><p>给一个链表，从链表的末尾移除第n个节点并返回头节点。假设n总是合法的。尝试在一次遍历中解决问题。</p>
-<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>这个问题的难点在于如何找到链表中的倒数第n个节点。同时题目要求一次遍历就能解决这个问题，这就意味着不能先遍历一遍确定链表的节点个数后再移除，而是需要在遍历到对应节点的时候就移除。<br>这道题目可以用一个巧妙的想法快慢指针去解决，先让快指针往前走n步，这样快慢指针就相差n个节点，再让快慢指针同时走，直到快指针指向最后一个节点时，慢指针指向的就是倒数第n个节点的前一个节点。</p>
-<p>n=2时</p>
-<ul>
-<li><blockquote>
-<p>1 &lt;- slow/head<br>2<br>3 &lt;- fast<br><strong>4</strong><br>5</p>
-</blockquote>
-</li>
-<li><blockquote>
-<p>1 &lt;- head<br>2<br>3 &lt;- slow<br><strong>4</strong><br>5 &lt;- fast</p>
-</blockquote>
-</li>
-</ul>
-<p>这里还有个问题是，有可能n就是链表的长度，那么在最开始快指针往前走n步的时候就已经指向最后一个节点的后面了，这个时候需要返回的是头部指针指向的下一个节点。</p>
-<p>n=5时</p>
-<ul>
-<li><blockquote>
-<p><strong>1</strong> &lt;- slow/head<br>2<br>3<br>4<br>5<br>&lt;- fast</p>
-</blockquote>
-</li>
-</ul>
-<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"></span><br><span class="line">    <span class="function">ListNode* <span class="title">removeNthFromEnd</span><span class="params">(ListNode* head, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        </span><br><span class="line">        ListNode *slow = head, *fast = head;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//fast往前走n步</span></span><br><span class="line">        <span class="keyword">while</span>(n--) &#123;</span><br><span class="line">            fast = fast-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//fast走到链表最后一个节点的后面</span></span><br><span class="line">        <span class="keyword">if</span> (fast == <span class="literal">NULL</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> head-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//fast走到链表最后一个节点</span></span><br><span class="line">        <span class="keyword">while</span> (fast-&gt;next != <span class="literal">NULL</span>) &#123;</span><br><span class="line">            fast = fast-&gt;next;</span><br><span class="line">            slow = slow-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        slow-&gt;next = slow-&gt;next-&gt;next;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+        <h4 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h4><p>Given a binary tree, determine if it is a valid binary search tree (BST).</p>
+<p>Assume a BST is defined as follows:</p>
+<p>The left subtree of a node contains only nodes with keys less than the node’s key.<br>The right subtree of a node contains only nodes with keys greater than the node’s key.<br>Both the left and right subtrees must also be binary search trees.</p>
+<p>Example 1:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Input:</span><br><span class="line">    2</span><br><span class="line">   / \</span><br><span class="line">  1   3</span><br><span class="line">Output: true</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">    5</span><br><span class="line">   / \</span><br><span class="line">  1   4</span><br><span class="line">     / \</span><br><span class="line">    3   6</span><br><span class="line">Output: false</span><br><span class="line">Explanation: The input is: [5,1,4,null,null,3,6]. The root node&apos;s value</span><br><span class="line">             is 5 but its right child&apos;s value is 4.</span><br></pre></td></tr></table></figure>
+<h4 id="翻译"><a href="#翻译" class="headerlink" title="翻译"></a>翻译</h4><p>给一棵二叉树，判断是不是有效的二分查找树。<br>二分查找树的定义如下：</p>
+<ol>
+<li>节点的左子树只包含小于该节点的值的节点</li>
+<li>节点的右子树只包含大于该节点的值的节点</li>
+<li>左右子树必须也是二分查找树</li>
+</ol>
+<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>对于二分查找树来说，每个节点的取值都可以算出上界和下界。用LONG_MAX和LONG_MIN表示根节点的上界和下界，解决int的边界问题。<br>左右子树必须也是二分查找树，这里可以用递归的做法。</p>
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * struct TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode *left;</span></span><br><span class="line"><span class="comment"> *     TreeNode *right;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) : val(x), left(NULL), right(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isValidBST</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> isValidBST(root, LONG_MIN, LONG_MAX);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isValidBST</span><span class="params">(TreeNode* root, <span class="keyword">long</span> min, <span class="keyword">long</span> max)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">NULL</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">int</span> val = root-&gt;val;</span><br><span class="line">        <span class="keyword">if</span> (val &lt;= min)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">if</span> (val &gt;= max)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">return</span> isValidBST(root-&gt;left, min, val) &amp;&amp; isValidBST(root-&gt;right, val, max);</span><br><span class="line">    &#125; </span><br><span class="line">            </span><br><span class="line">    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
       
     </div>
     
@@ -380,8 +367,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/06/20/OpenGL-Note-面剔除/" rel="next" title="OpenGL Note: 面剔除">
-                <i class="fa fa-chevron-left"></i> OpenGL Note: 面剔除
+              <a href="/2018/07/10/LeetCode-Maximum-Depth-of-Binary-Tree/" rel="next" title="LeetCode: Maximum Depth of Binary Tree">
+                <i class="fa fa-chevron-left"></i> LeetCode: Maximum Depth of Binary Tree
               </a>
             
           </div>
@@ -389,10 +376,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/06/28/LeetCode-Palindrome-Linked-List/" rel="prev" title="LeetCode:Palindrome Linked List">
-                LeetCode:Palindrome Linked List <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>

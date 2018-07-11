@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="Given a linked list, remove the n-th node from the end of list and return its head.">
+<meta name="description" content="Given a singly linked list, determine if it is a palindrome.">
 <meta name="keywords" content="LeetCode">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LeetCode: Remove Nth Node From End of List">
-<meta property="og:url" content="http://yoursite.com/2018/06/27/LeetCode-Remove-Nth-Node-From-End-of-List/index.html">
+<meta property="og:title" content="LeetCode:Palindrome Linked List">
+<meta property="og:url" content="http://yoursite.com/2018/06/28/LeetCode-Palindrome-Linked-List/index.html">
 <meta property="og:site_name" content="Echo`s Blog">
-<meta property="og:description" content="Given a linked list, remove the n-th node from the end of list and return its head.">
+<meta property="og:description" content="Given a singly linked list, determine if it is a palindrome.">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-06-28T12:46:09.000Z">
+<meta property="og:updated_time" content="2018-06-28T12:45:08.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LeetCode: Remove Nth Node From End of List">
-<meta name="twitter:description" content="Given a linked list, remove the n-th node from the end of list and return its head.">
+<meta name="twitter:title" content="LeetCode:Palindrome Linked List">
+<meta name="twitter:description" content="Given a singly linked list, determine if it is a palindrome.">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/06/27/LeetCode-Remove-Nth-Node-From-End-of-List/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/06/28/LeetCode-Palindrome-Linked-List/"/>
 
 
 
 
 
-  <title>LeetCode: Remove Nth Node From End of List | Echo`s Blog</title>
+  <title>LeetCode:Palindrome Linked List | Echo`s Blog</title>
   
 
 
@@ -253,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/27/LeetCode-Remove-Nth-Node-From-End-of-List/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/28/LeetCode-Palindrome-Linked-List/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Echo">
@@ -270,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">LeetCode: Remove Nth Node From End of List</h1>
+          <h1 class="post-title" itemprop="name headline">LeetCode:Palindrome Linked List</h1>
         
 
         <div class="post-meta">
@@ -282,8 +282,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-27T19:54:38+08:00">
-                2018-06-27
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-28T20:07:20+08:00">
+                2018-06-28
               </time>
             
 
@@ -307,7 +307,7 @@
 
           
               <div class="post-description">
-                  Given a linked list, remove the n-th node from the end of list and return its head.
+                  Given a singly linked list, determine if it is a palindrome.
               </div>
           
 
@@ -324,33 +324,17 @@
       
 
       
-        <h4 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h4><p>Given a linked list, remove the n-th node from the end of list and return its head.</p>
-<p>Example:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Given linked list: 1-&gt;2-&gt;3-&gt;4-&gt;5, and n = 2.</span><br><span class="line">After removing the second node from the end, the linked list becomes 1-&gt;2-&gt;3-&gt;5.</span><br></pre></td></tr></table></figure>
-<p>Note:<br>Given n will always be valid.</p>
-<p>Follow up:<br>Could you do this in one pass?</p>
-<h4 id="翻译"><a href="#翻译" class="headerlink" title="翻译"></a>翻译</h4><p>给一个链表，从链表的末尾移除第n个节点并返回头节点。假设n总是合法的。尝试在一次遍历中解决问题。</p>
-<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>这个问题的难点在于如何找到链表中的倒数第n个节点。同时题目要求一次遍历就能解决这个问题，这就意味着不能先遍历一遍确定链表的节点个数后再移除，而是需要在遍历到对应节点的时候就移除。<br>这道题目可以用一个巧妙的想法快慢指针去解决，先让快指针往前走n步，这样快慢指针就相差n个节点，再让快慢指针同时走，直到快指针指向最后一个节点时，慢指针指向的就是倒数第n个节点的前一个节点。</p>
-<p>n=2时</p>
-<ul>
-<li><blockquote>
-<p>1 &lt;- slow/head<br>2<br>3 &lt;- fast<br><strong>4</strong><br>5</p>
-</blockquote>
-</li>
-<li><blockquote>
-<p>1 &lt;- head<br>2<br>3 &lt;- slow<br><strong>4</strong><br>5 &lt;- fast</p>
-</blockquote>
-</li>
-</ul>
-<p>这里还有个问题是，有可能n就是链表的长度，那么在最开始快指针往前走n步的时候就已经指向最后一个节点的后面了，这个时候需要返回的是头部指针指向的下一个节点。</p>
-<p>n=5时</p>
-<ul>
-<li><blockquote>
-<p><strong>1</strong> &lt;- slow/head<br>2<br>3<br>4<br>5<br>&lt;- fast</p>
-</blockquote>
-</li>
-</ul>
-<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"></span><br><span class="line">    <span class="function">ListNode* <span class="title">removeNthFromEnd</span><span class="params">(ListNode* head, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        </span><br><span class="line">        ListNode *slow = head, *fast = head;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//fast往前走n步</span></span><br><span class="line">        <span class="keyword">while</span>(n--) &#123;</span><br><span class="line">            fast = fast-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//fast走到链表最后一个节点的后面</span></span><br><span class="line">        <span class="keyword">if</span> (fast == <span class="literal">NULL</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> head-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//fast走到链表最后一个节点</span></span><br><span class="line">        <span class="keyword">while</span> (fast-&gt;next != <span class="literal">NULL</span>) &#123;</span><br><span class="line">            fast = fast-&gt;next;</span><br><span class="line">            slow = slow-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        slow-&gt;next = slow-&gt;next-&gt;next;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+        <h4 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h4><p>Given a singly linked list, determine if it is a palindrome.</p>
+<p>Example 1:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: 1-&gt;2</span><br><span class="line">Output: false</span><br></pre></td></tr></table></figure></p>
+<p>Example 2:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: 1-&gt;2-&gt;2-&gt;1</span><br><span class="line">Output: true</span><br></pre></td></tr></table></figure></p>
+<p>Follow up:<br>Could you do it in O(n) time and O(1) space?</p>
+<h4 id="翻译"><a href="#翻译" class="headerlink" title="翻译"></a>翻译</h4><p>给一个链表，判断是否为回文链表。<br>要求时间复杂度为O(n)，空间复杂度为O(1)。</p>
+<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>这道题需要分两部解决，</p>
+<ol>
+<li>找到链表的中点<br> 利用前面说的快慢指针的想法，让慢指针一次走一步，快指针一次走两步，当快指针快走完的时候，慢指针会指向中点，这里需要考虑链表长度是奇数、偶数的情况。</li>
+<li>将链表后半段反转以便比较判断前后段元素相同<br> 利用三个指针遍历，逐个反转节点。</li>
+</ol>
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line">    </span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isPalindrome</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//考虑链表为空或者只有一个节点的情况</span></span><br><span class="line">        <span class="keyword">if</span> (head == <span class="literal">NULL</span> || head-&gt;next == <span class="literal">NULL</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//快慢指针遍历找中点</span></span><br><span class="line">        ListNode *slow = head, *fast = head;</span><br><span class="line">        <span class="keyword">while</span>(fast-&gt;next != <span class="literal">NULL</span> &amp;&amp; fast-&gt;next-&gt;next != <span class="literal">NULL</span>) &#123;</span><br><span class="line">            slow = slow-&gt;next;</span><br><span class="line">            fast = fast-&gt;next-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        slow = slow-&gt;next;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//反转链表</span></span><br><span class="line">        ListNode *end = slow-&gt;next, *temp = <span class="literal">NULL</span>;</span><br><span class="line">        slow-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">        <span class="keyword">while</span>(end != <span class="literal">NULL</span>) &#123;</span><br><span class="line">            <span class="comment">//每次交换slow跟end，end后移</span></span><br><span class="line">            temp = end;</span><br><span class="line">            end = end-&gt;next;</span><br><span class="line">            temp-&gt;next = slow;</span><br><span class="line">            slow = temp;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span>(slow != <span class="literal">NULL</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (head-&gt;val != slow-&gt;val) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;  </span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            slow = slow-&gt;next;</span><br><span class="line">            head = head-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -380,8 +364,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/06/20/OpenGL-Note-面剔除/" rel="next" title="OpenGL Note: 面剔除">
-                <i class="fa fa-chevron-left"></i> OpenGL Note: 面剔除
+              <a href="/2018/06/27/LeetCode-Remove-Nth-Node-From-End-of-List/" rel="next" title="LeetCode: Remove Nth Node From End of List">
+                <i class="fa fa-chevron-left"></i> LeetCode: Remove Nth Node From End of List
               </a>
             
           </div>
@@ -390,8 +374,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/06/28/LeetCode-Palindrome-Linked-List/" rel="prev" title="LeetCode:Palindrome Linked List">
-                LeetCode:Palindrome Linked List <i class="fa fa-chevron-right"></i>
+              <a href="/2018/07/10/LeetCode-Maximum-Depth-of-Binary-Tree/" rel="prev" title="LeetCode: Maximum Depth of Binary Tree">
+                LeetCode: Maximum Depth of Binary Tree <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>

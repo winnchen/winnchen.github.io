@@ -249,148 +249,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/08/TypeScript项目条件构建/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Echo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Echo`s Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/08/TypeScript项目条件构建/" itemprop="url">TypeScript条件构建</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-08T19:02:55+08:00">
-                2018-08-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>上篇文章说到，重构插件项目的时候，希望抽象出不同引擎、不同平台的通用接口，引入打包构建流程，针对不同引擎、不同平台代码单独打包。</p>
-<p>这里以我们需要实现兼容h5和微信小游戏平台为例。</p>
-<h4 id="使用interface抽象出平台接口"><a href="#使用interface抽象出平台接口" class="headerlink" title="使用interface抽象出平台接口"></a>使用interface抽象出平台接口</h4><hr>
-<p>这里IPlatform仅定义了一个接收url参数request方法。<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//platform/index.d.ts</span></span><br><span class="line"><span class="keyword">declare</span> <span class="keyword">interface</span> IPlatform &#123;</span><br><span class="line">   request(url: <span class="built_in">string</span>): <span class="built_in">void</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="定义H5Platform和WXPlatform"><a href="#定义H5Platform和WXPlatform" class="headerlink" title="定义H5Platform和WXPlatform"></a>定义H5Platform和WXPlatform</h4><hr>
-<p>H5Platform实现了IPlatform的request方法，调用window.alert()弹窗显示url的值。<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//platform/h5.ts</span></span><br><span class="line"><span class="comment">/// &lt;reference path="./index.d.ts"/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> H5Platform <span class="keyword">implements</span> IPlatform &#123;</span><br><span class="line">    request(url: <span class="built_in">string</span>): <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="built_in">window</span>.alert(<span class="string">`H5Platform.request\n<span class="subst">$&#123;url&#125;</span>`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>WXPlatform实现了IPlatform的request方法，调用微信的接口wx.showModal()弹窗显示url的值。<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//platform/wx.ts</span></span><br><span class="line"><span class="comment">/// &lt;reference path="./index.d.ts"/&gt;</span></span><br><span class="line"><span class="keyword">declare</span> <span class="keyword">let</span> wx: <span class="built_in">any</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> WXPlatform <span class="keyword">implements</span> IPlatform &#123;</span><br><span class="line">    request(url: <span class="built_in">string</span>): <span class="built_in">void</span> &#123;</span><br><span class="line">        wx.showModal(&#123;</span><br><span class="line">            title: <span class="string">'WXPlatform.request'</span>,</span><br><span class="line">            content: url,	</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p></p>
-<h4 id="上层的调用方式"><a href="#上层的调用方式" class="headerlink" title="上层的调用方式"></a>上层的调用方式</h4><hr>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//index.ts</span></span><br><span class="line"><span class="keyword">import</span> &#123; platform &#125; <span class="keyword">from</span> <span class="string">'./platform'</span></span><br><span class="line">platform.request(<span class="string">'https://www.baidu.com'</span>);</span><br></pre></td></tr></table></figure>
-<p>到这一步，平台接口和实现都写好了，这时候我们希望上层业务的调用方式是这样的，不关心具体使用的平台。所以需要在platform模块导出对应的平台对象。</p>
-<h4 id="方法1-platform模块在运行时导入所有的平台实现，判断当前的运行平台，然后决定创建对应的平台对象并导出。"><a href="#方法1-platform模块在运行时导入所有的平台实现，判断当前的运行平台，然后决定创建对应的平台对象并导出。" class="headerlink" title="方法1. platform模块在运行时导入所有的平台实现，判断当前的运行平台，然后决定创建对应的平台对象并导出。"></a>方法1. platform模块在运行时导入所有的平台实现，判断当前的运行平台，然后决定创建对应的平台对象并导出。</h4><hr>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//platform/index.ts</span></span><br><span class="line"><span class="keyword">import</span> &#123; H5Platform &#125; <span class="keyword">from</span> <span class="string">'./h5'</span></span><br><span class="line"><span class="keyword">import</span> &#123; WXPlatform &#125; <span class="keyword">from</span> <span class="string">'./wx'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">switch</span>(curPlatform) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'h5'</span>:</span><br><span class="line">        platform = <span class="keyword">new</span> H5Platform();</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'wx'</span>:</span><br><span class="line">        platform = <span class="keyword">new</span> WXPlatform();</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> &#123; platform &#125;</span><br></pre></td></tr></table></figure>
-<p>这种方式有个问题是需要导入所有的平台实现，platform模块需要关心当前运行的平台。每次新增平台的时候，都需要在模块代码中增加兼容逻辑。</p>
-<h4 id="方法2-平台实现代码中各自创建平台对象并导出，platform模块辅助导出，构建时替换模块路径。"><a href="#方法2-平台实现代码中各自创建平台对象并导出，platform模块辅助导出，构建时替换模块路径。" class="headerlink" title="方法2. 平台实现代码中各自创建平台对象并导出，platform模块辅助导出，构建时替换模块路径。"></a>方法2. 平台实现代码中各自创建平台对象并导出，platform模块辅助导出，构建时替换模块路径。</h4><hr>
-<p>用这种方式的原因是，重构的这个项目是个小游戏插件，微信小游戏是有代码包大小限制，这里希望能控制打包后的代码量，希望只打包单个引擎单个平台的代码。<br>之前看WebPack的文档时，发现有个插件<a href="https://webpack.js.org/plugins/normal-module-replacement-plugin/" target="_blank" rel="noopener">NormalModuleReplacementPlugin</a>可以在模块解析前替换特定的模块，从而达到根据特定的条件构建不同的目标。这样相比起方式1，打包后的代码只会包含特定的平台实现，而不是全部。而且后续新增平台，需要在打包配置中新增条件构建，而不是在实际模块代码中增加逻辑。</p>
-<p>分别在H5Platform和WXPlatform中添加以下代码，创建对应的平台对象并导出，注意导出的变量名相同。<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//platform/h5.ts</span></span><br><span class="line"><span class="keyword">const</span> platform = <span class="keyword">new</span> H5Platform();</span><br><span class="line"><span class="keyword">export</span> &#123; platform &#125;;</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//platform/wx.ts</span></span><br><span class="line"><span class="keyword">const</span> platform = <span class="keyword">new</span> WXPlatform();</span><br><span class="line"><span class="keyword">export</span> &#123; platform &#125;;</span><br></pre></td></tr></table></figure>
-<p>在platform模块中，用<code>&#39;./PLATFORM&#39;</code>代替需要引入的平台实现代码模块，最终将上一步导出的变量platform导出<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//platform/index.ts</span></span><br><span class="line"><span class="keyword">import</span> &#123; platform &#125; <span class="keyword">from</span> <span class="string">'./PLATFORM'</span></span><br><span class="line"><span class="keyword">export</span> &#123; platform &#125;</span><br></pre></td></tr></table></figure></p>
-<p>注意这里由于模块<code>&#39;./PLATFORM&#39;</code>只是一个用于NormalModuleReplacementPlugin解析成对应平台实现类路径的字符串，在Typescript编译器进行模块解析时，是没办法解析成功的，所以这里需要添加声明，声明这个模块导出的变量。<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//platform/index.d.ts</span></span><br><span class="line"><span class="keyword">declare</span> <span class="keyword">module</span> '*./PLATFORM' &#123;</span><br><span class="line">    <span class="keyword">const</span> platform: IPlatform;  <span class="comment">//注意这里的类型是IPlatform</span></span><br><span class="line">    <span class="keyword">export</span> &#123; platform &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>在webpack的配置中，新增NormalModuleReplacementPlugin根据构建条件替换<code>&#39;./PLATFORM&#39;</code><br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> (<span class="params">env</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        output: &#123;</span><br><span class="line">            filename: <span class="string">`<span class="subst">$&#123;env.PLATFORM&#125;</span>/index.js`</span></span><br><span class="line">        &#125;,</span><br><span class="line">        entry: <span class="string">'./index.ts'</span>,</span><br><span class="line">        <span class="keyword">module</span>: &#123;</span><br><span class="line">            rules: [</span><br><span class="line">              &#123;</span><br><span class="line">                    test: <span class="regexp">/\.ts?$/</span>,</span><br><span class="line">                    use: <span class="string">'ts-loader'</span>,</span><br><span class="line">                    exclude: <span class="regexp">/node_modules/</span></span><br><span class="line">              &#125;</span><br><span class="line">            ],</span><br><span class="line">          &#125;,</span><br><span class="line">        plugins: [</span><br><span class="line">            <span class="keyword">new</span> webpack.NormalModuleReplacementPlugin(<span class="regexp">/(.*)PLATFORM(\.*)/</span>, <span class="function"><span class="keyword">function</span>(<span class="params">resource</span>) </span>&#123;</span><br><span class="line">                resource.request = resource.request.replace(<span class="regexp">/PLATFORM/</span>, env.PLATFORM);</span><br><span class="line">            &#125;)</span><br><span class="line">        ],</span><br><span class="line">        resolve: &#123;</span><br><span class="line">            extensions: [ <span class="string">'.tsx'</span>, <span class="string">'.ts'</span>, <span class="string">'.js'</span> ]</span><br><span class="line">        &#125;,</span><br><span class="line">        devtool: <span class="string">"source-map"</span> </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>构建时需要传入env.PLATFORM参数，构建命令如下：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">webpack --mode production --env.PLATFORM h5</span><br><span class="line">webpack --mode production --env.PLATFORM wx</span><br></pre></td></tr></table></figure></p>
-<h4 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h4><p>方法1看起来会更为直观好理解，需要写的代码量比较少。方法2则是在构建流程上做文章，会有一定的理解成本。<br>当然两种方法有各自适用的场景，需要结合实际项目情况采用。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/08/关于项目代码架构的一点思考/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1494,6 +1352,130 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/29/OpenGL-Note-模板测试/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Echo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Echo`s Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/29/OpenGL-Note-模板测试/" itemprop="url">OpenGL Note: 模板测试</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-29T14:33:39+08:00">
+                2018-05-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          片段着色器处理完片段后，模板测试开始执行，模板测试会根据模板缓冲区的内容丢弃无法通过的片段。剩余的片段会传递给深度测试进行下一步操作。
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/05/29/OpenGL-Note-模板测试/">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
@@ -1544,7 +1526,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1557,7 +1539,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

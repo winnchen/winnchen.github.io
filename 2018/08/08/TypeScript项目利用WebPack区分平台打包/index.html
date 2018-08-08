@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="LeetCode," />
+  <meta name="keywords" content="TypeScript,WebPack," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="Given a binary tree, determine if it is a valid binary search tree (BST).">
-<meta name="keywords" content="LeetCode">
+<meta name="description" content="上篇文章说到，重构插件项目的时候，希望抽象出不同引擎、不同平台的通用接口，引入打包构建流程，针对不同引擎、不同平台代码单独打包。 这里以抽象出不同平台的通用接口为例子。 使用interface抽象出平台接口： 这里IPlatform仅定义了一个接收url参数request方法。 以我们需要实现兼容h5和微信小游戏平台为例，定义H5Platform和WXPlatform。  h5.tsH5Pl">
+<meta name="keywords" content="TypeScript,WebPack">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LeetCode: Validate Binary Search Tree">
-<meta property="og:url" content="http://yoursite.com/2018/07/10/LeetCode-Validate-Binary-Search-Tree/index.html">
+<meta property="og:title" content="TypeScript项目利用WebPack区分平台打包">
+<meta property="og:url" content="http://yoursite.com/2018/08/08/TypeScript项目利用WebPack区分平台打包/index.html">
 <meta property="og:site_name" content="Echo`s Blog">
-<meta property="og:description" content="Given a binary tree, determine if it is a valid binary search tree (BST).">
+<meta property="og:description" content="上篇文章说到，重构插件项目的时候，希望抽象出不同引擎、不同平台的通用接口，引入打包构建流程，针对不同引擎、不同平台代码单独打包。 这里以抽象出不同平台的通用接口为例子。 使用interface抽象出平台接口： 这里IPlatform仅定义了一个接收url参数request方法。 以我们需要实现兼容h5和微信小游戏平台为例，定义H5Platform和WXPlatform。  h5.tsH5Pl">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-07-11T06:41:35.000Z">
+<meta property="og:updated_time" content="2018-08-08T07:46:40.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LeetCode: Validate Binary Search Tree">
-<meta name="twitter:description" content="Given a binary tree, determine if it is a valid binary search tree (BST).">
+<meta name="twitter:title" content="TypeScript项目利用WebPack区分平台打包">
+<meta name="twitter:description" content="上篇文章说到，重构插件项目的时候，希望抽象出不同引擎、不同平台的通用接口，引入打包构建流程，针对不同引擎、不同平台代码单独打包。 这里以抽象出不同平台的通用接口为例子。 使用interface抽象出平台接口： 这里IPlatform仅定义了一个接收url参数request方法。 以我们需要实现兼容h5和微信小游戏平台为例，定义H5Platform和WXPlatform。  h5.tsH5Pl">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/07/10/LeetCode-Validate-Binary-Search-Tree/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/08/08/TypeScript项目利用WebPack区分平台打包/"/>
 
 
 
 
 
-  <title>LeetCode: Validate Binary Search Tree | Echo`s Blog</title>
+  <title>TypeScript项目利用WebPack区分平台打包 | Echo`s Blog</title>
   
 
 
@@ -253,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/10/LeetCode-Validate-Binary-Search-Tree/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/08/TypeScript项目利用WebPack区分平台打包/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Echo">
@@ -270,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">LeetCode: Validate Binary Search Tree</h1>
+          <h1 class="post-title" itemprop="name headline">TypeScript项目利用WebPack区分平台打包</h1>
         
 
         <div class="post-meta">
@@ -282,8 +282,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-10T19:40:16+08:00">
-                2018-07-10
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-08T15:02:55+08:00">
+                2018-08-08
               </time>
             
 
@@ -306,10 +306,6 @@
           
 
           
-              <div class="post-description">
-                  Given a binary tree, determine if it is a valid binary search tree (BST).
-              </div>
-          
 
         </div>
       </header>
@@ -324,19 +320,17 @@
       
 
       
-        <h4 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h4><p>Given a binary tree, determine if it is a valid binary search tree (BST).</p>
-<p>Assume a BST is defined as follows:</p>
-<p>The left subtree of a node contains only nodes with keys less than the node’s key.<br>The right subtree of a node contains only nodes with keys greater than the node’s key.<br>Both the left and right subtrees must also be binary search trees.</p>
-<p>Example 1:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Input:</span><br><span class="line">    2</span><br><span class="line">   / \</span><br><span class="line">  1   3</span><br><span class="line">Output: true</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">    5</span><br><span class="line">   / \</span><br><span class="line">  1   4</span><br><span class="line">     / \</span><br><span class="line">    3   6</span><br><span class="line">Output: false</span><br><span class="line">Explanation: The input is: [5,1,4,null,null,3,6]. The root node&apos;s value</span><br><span class="line">             is 5 but its right child&apos;s value is 4.</span><br></pre></td></tr></table></figure>
-<h4 id="翻译"><a href="#翻译" class="headerlink" title="翻译"></a>翻译</h4><p>给一棵二叉树，判断是不是有效的二分查找树。<br>二分查找树的定义如下：</p>
-<ol>
-<li>节点的左子树只包含小于该节点的值的节点</li>
-<li>节点的右子树只包含大于该节点的值的节点</li>
-<li>左右子树必须也是二分查找树</li>
-</ol>
-<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>对于二分查找树来说，每个节点的取值都可以算出上界和下界。用LONG_MAX和LONG_MIN表示根节点的上界和下界，解决int的边界问题。<br>左右子树必须也是二分查找树，这里可以用递归的做法。</p>
-<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * struct TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode *left;</span></span><br><span class="line"><span class="comment"> *     TreeNode *right;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) : val(x), left(NULL), right(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isValidBST</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> isValidBST(root, LONG_MIN, LONG_MAX);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isValidBST</span><span class="params">(TreeNode* root, <span class="keyword">long</span> min, <span class="keyword">long</span> max)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">NULL</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">int</span> val = root-&gt;val;</span><br><span class="line">        <span class="keyword">if</span> (val &lt;= min)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">if</span> (val &gt;= max)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">return</span> isValidBST(root-&gt;left, min, val) &amp;&amp; isValidBST(root-&gt;right, val, max);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+        <p>上篇文章说到，重构插件项目的时候，希望抽象出不同引擎、不同平台的通用接口，引入打包构建流程，针对不同引擎、不同平台代码单独打包。</p>
+<p>这里以抽象出不同平台的通用接口为例子。</p>
+<p>使用interface抽象出平台接口：</p>
+<p>这里IPlatform仅定义了一个接收url参数request方法。<br><img src="" alt=""></p>
+<p>以我们需要实现兼容h5和微信小游戏平台为例，定义H5Platform和WXPlatform。</p>
+<blockquote>
+<p>h5.ts<br><img src="" alt=""><br>H5Platform实现了IPlatform的request方法，调用window.alert()弹窗显示url的值。</p>
+</blockquote>
+<blockquote>
+<p>wx.ts<br><img src="" alt=""><br>WXPlatform实现了IPlatform的request方法，调用微信的接口wx.showModal()弹窗显示url的值。</p>
+</blockquote>
 
       
     </div>
@@ -354,7 +348,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/LeetCode/" rel="tag"># LeetCode</a>
+            <a href="/tags/TypeScript/" rel="tag"># TypeScript</a>
+          
+            <a href="/tags/WebPack/" rel="tag"># WebPack</a>
           
         </div>
       
@@ -367,8 +363,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/07/10/LeetCode-Maximum-Depth-of-Binary-Tree/" rel="next" title="LeetCode: Maximum Depth of Binary Tree">
-                <i class="fa fa-chevron-left"></i> LeetCode: Maximum Depth of Binary Tree
+              <a href="/2018/07/11/LeetCode-Symmetric-Tree/" rel="next" title="LeetCode: Symmetric Tree">
+                <i class="fa fa-chevron-left"></i> LeetCode: Symmetric Tree
               </a>
             
           </div>
@@ -377,8 +373,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/07/11/LeetCode-Symmetric-Tree/" rel="prev" title="LeetCode: Symmetric Tree">
-                LeetCode: Symmetric Tree <i class="fa fa-chevron-right"></i>
+              <a href="/2018/08/08/关于项目代码架构的一点思考/" rel="prev" title="关于项目代码架构的一点思考">
+                关于项目代码架构的一点思考 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -431,17 +427,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -492,22 +479,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#翻译"><span class="nav-number">2.</span> <span class="nav-text">翻译</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#思路"><span class="nav-number">3.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码"><span class="nav-number">4.</span> <span class="nav-text">代码</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       

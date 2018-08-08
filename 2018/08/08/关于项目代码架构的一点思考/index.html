@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="LeetCode," />
+  <meta name="keywords" content="思考," />
 
 
 
@@ -79,18 +79,21 @@
 
 
 
-<meta name="description" content="Given a binary tree, determine if it is a valid binary search tree (BST).">
-<meta name="keywords" content="LeetCode">
+<meta name="description" content="前段时间接手了一个项目，特意抽时间进行CodeReview，在这里记录下重构项目时对项目代码架构的思考。">
+<meta name="keywords" content="思考">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LeetCode: Validate Binary Search Tree">
-<meta property="og:url" content="http://yoursite.com/2018/07/10/LeetCode-Validate-Binary-Search-Tree/index.html">
+<meta property="og:title" content="关于项目代码架构的一点思考">
+<meta property="og:url" content="http://yoursite.com/2018/08/08/关于项目代码架构的一点思考/index.html">
 <meta property="og:site_name" content="Echo`s Blog">
-<meta property="og:description" content="Given a binary tree, determine if it is a valid binary search tree (BST).">
+<meta property="og:description" content="前段时间接手了一个项目，特意抽时间进行CodeReview，在这里记录下重构项目时对项目代码架构的思考。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-07-11T06:41:35.000Z">
+<meta property="og:image" content="http://7xlmni.com1.z0.glb.clouddn.com/a">
+<meta property="og:image" content="http://7xlmni.com1.z0.glb.clouddn.com/b">
+<meta property="og:updated_time" content="2018-08-08T07:07:52.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LeetCode: Validate Binary Search Tree">
-<meta name="twitter:description" content="Given a binary tree, determine if it is a valid binary search tree (BST).">
+<meta name="twitter:title" content="关于项目代码架构的一点思考">
+<meta name="twitter:description" content="前段时间接手了一个项目，特意抽时间进行CodeReview，在这里记录下重构项目时对项目代码架构的思考。">
+<meta name="twitter:image" content="http://7xlmni.com1.z0.glb.clouddn.com/a">
 
 
 
@@ -120,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/07/10/LeetCode-Validate-Binary-Search-Tree/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/08/08/关于项目代码架构的一点思考/"/>
 
 
 
 
 
-  <title>LeetCode: Validate Binary Search Tree | Echo`s Blog</title>
+  <title>关于项目代码架构的一点思考 | Echo`s Blog</title>
   
 
 
@@ -253,7 +256,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/10/LeetCode-Validate-Binary-Search-Tree/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/08/关于项目代码架构的一点思考/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Echo">
@@ -270,7 +273,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">LeetCode: Validate Binary Search Tree</h1>
+          <h1 class="post-title" itemprop="name headline">关于项目代码架构的一点思考</h1>
         
 
         <div class="post-meta">
@@ -282,8 +285,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-10T19:40:16+08:00">
-                2018-07-10
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-08T18:45:15+08:00">
+                2018-08-08
               </time>
             
 
@@ -307,7 +310,7 @@
 
           
               <div class="post-description">
-                  Given a binary tree, determine if it is a valid binary search tree (BST).
+                  前段时间接手了一个项目，特意抽时间进行CodeReview，在这里记录下重构项目时对项目代码架构的思考。
               </div>
           
 
@@ -324,19 +327,16 @@
       
 
       
-        <h4 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h4><p>Given a binary tree, determine if it is a valid binary search tree (BST).</p>
-<p>Assume a BST is defined as follows:</p>
-<p>The left subtree of a node contains only nodes with keys less than the node’s key.<br>The right subtree of a node contains only nodes with keys greater than the node’s key.<br>Both the left and right subtrees must also be binary search trees.</p>
-<p>Example 1:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Input:</span><br><span class="line">    2</span><br><span class="line">   / \</span><br><span class="line">  1   3</span><br><span class="line">Output: true</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">    5</span><br><span class="line">   / \</span><br><span class="line">  1   4</span><br><span class="line">     / \</span><br><span class="line">    3   6</span><br><span class="line">Output: false</span><br><span class="line">Explanation: The input is: [5,1,4,null,null,3,6]. The root node&apos;s value</span><br><span class="line">             is 5 but its right child&apos;s value is 4.</span><br></pre></td></tr></table></figure>
-<h4 id="翻译"><a href="#翻译" class="headerlink" title="翻译"></a>翻译</h4><p>给一棵二叉树，判断是不是有效的二分查找树。<br>二分查找树的定义如下：</p>
+        <p>前段时间接手了一个微信小游戏插件项目是需要支持多款Web游戏引擎，之前负责这块的同事愣是针对多款引擎分别写了多份代码，这样的实现未免有些粗暴冗余，后续也不可维护。</p>
+<p><img src="http://7xlmni.com1.z0.glb.clouddn.com/a" alt=""><br>上图是对原有代码进行CodeReview后的总结，可以看到这几份代码中业务逻辑是不依赖于游戏引擎，可以抽离成公共逻辑的。如果在这基础上要开发新功能，需要去了解这几份代码的逻辑，了解几个引擎的使用方法，编写几份作用类似的代码，想想就有点头疼。</p>
+<p>于是后面重构项目的时候，重新优化了下代码架构，并且引入了打包构建流程。<br><img src="http://7xlmni.com1.z0.glb.clouddn.com/b" alt=""><br>这是优化后的代码架构，可以看到相比起原来的代码：</p>
 <ol>
-<li>节点的左子树只包含小于该节点的值的节点</li>
-<li>节点的右子树只包含大于该节点的值的节点</li>
-<li>左右子树必须也是二分查找树</li>
+<li>抽取出业务逻辑，后续开发新功能只需要编写一份业务逻辑。</li>
+<li>针对不同游戏引擎写了兼容层，抽象出通用接口，业务逻辑需要绘制渲染时只需要调用引擎兼容层的接口，不需要关心底层引擎是什么。</li>
+<li>针对不同平台写了兼容层，这里主要是为了内部调试方便设计的，可以让这个项目运行在微信小游戏、浏览器上。</li>
+<li>抽取出网络、日志等基础功能模块。</li>
+<li>引入打包构建流程，针对不同引擎、不同平台代码单独打包。这里的考量是，微信小游戏中对代码包体大小是有限制的，区分不同引擎打包可以减少引入其他引擎不必要的代码。</li>
 </ol>
-<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>对于二分查找树来说，每个节点的取值都可以算出上界和下界。用LONG_MAX和LONG_MIN表示根节点的上界和下界，解决int的边界问题。<br>左右子树必须也是二分查找树，这里可以用递归的做法。</p>
-<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * struct TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode *left;</span></span><br><span class="line"><span class="comment"> *     TreeNode *right;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) : val(x), left(NULL), right(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isValidBST</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> isValidBST(root, LONG_MIN, LONG_MAX);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isValidBST</span><span class="params">(TreeNode* root, <span class="keyword">long</span> min, <span class="keyword">long</span> max)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">NULL</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">int</span> val = root-&gt;val;</span><br><span class="line">        <span class="keyword">if</span> (val &lt;= min)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">if</span> (val &gt;= max)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">return</span> isValidBST(root-&gt;left, min, val) &amp;&amp; isValidBST(root-&gt;right, val, max);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -354,7 +354,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/LeetCode/" rel="tag"># LeetCode</a>
+            <a href="/tags/思考/" rel="tag"># 思考</a>
           
         </div>
       
@@ -367,8 +367,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/07/10/LeetCode-Maximum-Depth-of-Binary-Tree/" rel="next" title="LeetCode: Maximum Depth of Binary Tree">
-                <i class="fa fa-chevron-left"></i> LeetCode: Maximum Depth of Binary Tree
+              <a href="/2018/08/08/TypeScript项目利用WebPack区分平台打包/" rel="next" title="TypeScript项目利用WebPack区分平台打包">
+                <i class="fa fa-chevron-left"></i> TypeScript项目利用WebPack区分平台打包
               </a>
             
           </div>
@@ -376,10 +376,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/07/11/LeetCode-Symmetric-Tree/" rel="prev" title="LeetCode: Symmetric Tree">
-                LeetCode: Symmetric Tree <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -431,17 +427,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -492,22 +479,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#翻译"><span class="nav-number">2.</span> <span class="nav-text">翻译</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#思路"><span class="nav-number">3.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码"><span class="nav-number">4.</span> <span class="nav-text">代码</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
